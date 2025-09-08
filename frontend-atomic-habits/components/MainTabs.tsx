@@ -2,6 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { CustomTabBar } from "./CustomTabBar";
 import Habits from "../pages/habits/Habits";
 import Calendar from "../pages/calendar/Calendar";
+import Profile from "../pages/profile/Profile";
 
 const Tab = createBottomTabNavigator();
 
@@ -23,7 +24,7 @@ export function MainTabs() {
             />
             <Tab.Screen
                 name="Perfil"
-                component={Calendar}
+                component={Profile}
             />
         </Tab.Navigator>
     );
