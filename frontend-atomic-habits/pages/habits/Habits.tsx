@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Feather } from '@expo/vector-icons';
+import { HabitsCarts } from '../../components/habits/HabitsCarts';
+import { HabitsType } from '../../components/habits/HabitsType';
 
 export default function Habits() {
+
+    const [isHabitsSection, setIsHabitsSection] = useState(true);
+
     return (
         <>
             <View style={styles.container}>
@@ -16,15 +21,23 @@ export default function Habits() {
 
                 {/* Tabs */}
                 <View style={styles.tabs}>
-                    <TouchableOpacity style={[styles.tab, styles.tabActive]}>
-                        <Text style={[styles.tabText, styles.tabTextActive]}>
+                    <TouchableOpacity style={[styles.tab, isHabitsSection && styles.tabActive]} onPress={() => setIsHabitsSection(true)}>
+                        <Text style={[styles.tabText, isHabitsSection && styles.tabTextActive]}>
                             Mis hábitos
                         </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.tab}>
-                        <Text style={styles.tabText}>Tipos</Text>
+                    <TouchableOpacity style={[styles.tab, !isHabitsSection && styles.tabActive]} onPress={() => setIsHabitsSection(false)}>
+                        <Text style={[styles.tabText, !isHabitsSection && styles.tabTextActive]}>Tipos</Text>
                     </TouchableOpacity>
                 </View>
+
+                <ScrollView style={styles.bodyContainer}>
+                    {isHabitsSection ? (
+                        <HabitsCarts />
+                    ) : (
+                        <HabitsType />
+                    )}
+                </ScrollView>
 
             </View>
         </>
@@ -39,7 +52,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 25,
         paddingVertical: 15,
         justifyContent: "space-between",
-
     },
     headerTitle: { color: "white", fontSize: 18, fontWeight: "bold" },
     addButton: { padding: 8, borderRadius: 1 },
@@ -81,6 +93,8 @@ const styles = StyleSheet.create({
     },
     habitTitle: { color: "white", fontSize: 16, fontWeight: "500" },
     habitSubtitle: { color: "#9caeba", fontSize: 14 },
+    text: { color: "white" },
+    bodyContainer: { paddingHorizontal: 16, paddingBottom: 16 },
 });
 
 
